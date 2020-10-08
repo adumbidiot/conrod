@@ -1017,10 +1017,10 @@ impl From<glium::program::ProgramChooserCreationError> for RendererCreationError
 }
 
 impl std::error::Error for RendererCreationError {
-    fn description(&self) -> &str {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match *self {
-            RendererCreationError::Texture(ref e) => std::error::Error::description(e),
-            RendererCreationError::Program(ref e) => std::error::Error::description(e),
+            RendererCreationError::Texture(ref e) => Some(e),
+            RendererCreationError::Program(ref e) => Some(e),
         }
     }
 }
@@ -1047,10 +1047,10 @@ impl From<glium::DrawError> for DrawError {
 }
 
 impl std::error::Error for DrawError {
-    fn description(&self) -> &str {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match *self {
-            DrawError::Buffer(ref e) => std::error::Error::description(e),
-            DrawError::Draw(ref e) => std::error::Error::description(e),
+            DrawError::Buffer(ref e) => Some(e),
+            DrawError::Draw(ref e) => Some(e),
         }
     }
 }

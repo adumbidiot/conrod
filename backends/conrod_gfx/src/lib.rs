@@ -811,9 +811,9 @@ impl From<gfx::PipelineStateError<String>> for RendererCreationError {
 }
 
 impl std::error::Error for RendererCreationError {
-    fn description(&self) -> &str {
+    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
         match *self {
-            RendererCreationError::PipelineState(ref e) => std::error::Error::description(e),
+            RendererCreationError::PipelineState(ref e) => Some(e),
         }
     }
 }
